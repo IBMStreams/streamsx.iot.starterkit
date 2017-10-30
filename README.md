@@ -34,6 +34,7 @@ Clicking **View App** will take you to the home page of your starter kit:
 ![Sample landing page](img/homepage.png)
 
 ## Next Steps
+
 Once you have the services set up, you can:
 
 1. Create an Edgent application. Follow this recipe to [create an Edgent application that sends data to the Watson IoT platform](https://developer.ibm.com/recipes/tutorials/send-events-to-the-watson-iot-platform-from-a-raspberry-pi-running-apache-edgent/).
@@ -49,9 +50,6 @@ For SPL and Java, complete the follow up to the Edgent recipe to
 For Python, [this Python notebook](https://github.com/IBMStreams/samples/blob/master/IoT/WeatherStationApp/Detect%2Bmalfunctioning%2Bsensors%2Bin%2Breal%2Btime.ipynb) walks you through creating a Streams application.
 An Edgent application that generates data is provided.
 
-**Note:** Some of these tutorials give instructions to
-create credentials.These credentials have already been created for you.
-Retrieve them by clicking "View Credentials" from the home page of your starter kit.
 
 ## More Resources
 
