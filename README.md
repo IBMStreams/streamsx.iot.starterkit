@@ -19,3 +19,41 @@ Click the the **Deploy to Bluemix** button below to deploy and configure the Str
    - Rename the Streaming Analtyics service to `Streaming-Analytics`
    - Rename the Watson IoT Platform to `Internet-of-Things-Platform`. These names must match exactly as indicated here.
    Then click the **Deploy to Bluemix** button above.
+
+
+### View the landing page
+
+After deploying the services, you can go to the home page of your starter kit to access the credentials for your services.  
+
+From the toolchain's home page, click **View App** once the deployment is done to go to the home page of your starter kit:
+![View App](img/viewapp.png)
+If the **View App** button does not display a link, click **Delivery Pipeline** to check on the status of deployment.
+
+Clicking **View App** will take you to the home page of your starter kit:
+
+![Sample landing page](img/homepage.png)
+
+## Next Steps
+Once you have the services set up, you can:
+
+1. Create an Edgent application. Follow this recipe to [create an Edgent application that sends data to the Watson IoT platform](https://developer.ibm.com/recipes/tutorials/send-events-to-the-watson-iot-platform-from-a-raspberry-pi-running-apache-edgent/).
+
+2. Submit the `IotPlatform` application
+- Click **Tools** on the home page of the starter kit to submit the job if it is not running.
+- If you used the manual deployment option, follow [step 4 of these instructions](https://developer.ibm.com/streamsdev/docs/setup-instructions-connecting-edgent-streams-applications-watson-iot-platform).
+
+3. Create a Streams application
+For SPL and Java, complete the follow up to the Edgent recipe to
+[Create a Streams application that processes the data from Edgent](https://developer.ibm.com/recipes/tutorials/connect-apache-edgent-to-the-streaming-analytics-service-using-the-watson-iot-platform/)
+
+For Python, [this Python notebook](https://github.com/IBMStreams/samples/blob/master/IoT/WeatherStationApp/Detect%2Bmalfunctioning%2Bsensors%2Bin%2Breal%2Btime.ipynb) walks you through creating a Streams application.
+An Edgent application that generates data is provided.
+
+**Note:** Some of these tutorials give instructions to
+create credentials.These credentials have already been created for you.
+Retrieve them by clicking "View Credentials" from the home page of your starter kit.
+
+## More Resources
+
+- [Cheatsheet for connecting Edgent and Streams applications](https://developer.ibm.com/streamsdev/docs/cheat-sheet-connecting-edgent-streams-applications/)
+- [Sample Streams applications on Github](https://github.com/IBMStreams/samples/tree/master/IoT/ReadEdgentEvents)
