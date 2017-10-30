@@ -1,0 +1,21 @@
+applications:
+- name: streamsiotstarter
+  services:
+  - Streaming-Analytics
+  - Internet-of-Things-Platform
+  disk_quota: 1024M
+  buildpack: sdk-for-nodejs
+  description: Starter kit for Streaming Analytics and IoT
+  domain: mybluemix.net
+  path: nodejs
+  command: npm start
+  instances: 1
+  memory: 512M
+
+declared-services:
+  Streaming-Analytics:
+    label: streaming-analytics
+    plan: Standard
+  Internet-of-Things-Platform:
+    label: iotf-service
+    plan: iotf-service-free
