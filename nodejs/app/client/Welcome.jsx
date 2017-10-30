@@ -100,7 +100,7 @@ class Welcome extends BaseComponent {
 <a href="https://developer.ibm.com/recipes/tutorials/connect-apache-edgent-to-the-streaming-analytics-service-using-the-watson-iot-platform/">
                   Create a Streams application that processes the data from Edgent</a>
                   </p>
-                  <p><b>For Python,</b> this Python notebook walks you through creating a Streams application. <br/> An Edgent application that generates data is provided.
+                  <p><b>For Python,</b> this <a href="https://github.com/IBMStreams/samples/blob/master/IoT/WeatherStationApp/Detect%2Bmalfunctioning%2Bsensors%2Bin%2Breal%2Btime.ipynb" target="blank">Python notebook </a>walks you through creating a Streams application. <br/> An Edgent application that generates data is provided.
 
 
                    Note: Some of these tutorials give instructions to<br/>create credentials.These credentials have already been created for you.<br/> Retrieve them by clicking "View Credentials" above.
