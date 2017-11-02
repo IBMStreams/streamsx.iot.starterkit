@@ -43,8 +43,8 @@ class StreamJobs extends BaseComponent {
 
   updateStatus() {
     //clear this so it doesn't keep refreshing indefinitely.
-    if (self.state.recentSubmit){
-      self.setState({recentSubmit: false});
+    if (this.state.recentSubmit){
+      this.setState({recentSubmit: false});
    }
     this.refreshJobStatus();
   }

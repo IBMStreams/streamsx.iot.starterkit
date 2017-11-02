@@ -20,6 +20,7 @@ const logger = require.main.require('./app/server/common/logger');
 
 // Common streams status to return
 const status_in_progress = null;
+const status_none = {job_count: 0, failed: false, error:""};
 
 
 // Get Jobs that are currently running
@@ -60,7 +61,7 @@ function getIotJobStatus(status){
         break;
     }
   }
-  iot_job_status = {failed: false, "id"  : id, state: status.state, "found": found, "healthy": health, "job_count": status.job_count};
+  iot_job_status = {error: "", failed: false, "id"  : id, state: status.state, "found": found, "healthy": health, "job_count": status.job_count};
 
   return iot_job_status;
 }
@@ -99,9 +100,12 @@ endpt.post('/', function(req, res, next) {
 endpt.delete('/', function(req, res, next) {
   io.emit('iotplatformjob', status_in_progress);
   streams.stopJobs(config.streaming_analytics, config.streaming_app, function (err, status) {
-    io.emit('iotplatformjob', failed(err));
+
     if (err) {
+      io.emit('iotplatformjob', failed(err));
       return next(err);
+    } else {
+      io.emit('iotplatformjob', status_none);
     }
 
     res.sendStatus(HttpStatus.NO_CONTENT);
