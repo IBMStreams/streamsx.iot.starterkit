@@ -32,7 +32,7 @@ class CustomCard extends BaseComponent {
           subtitle ={this.props.subtitle}
 
           />
-          <CardText style={{textAlign: this.props.align, fontSize: "15pt"}}>
+          <CardText style={{textAlign: this.props.align, fontSize: "13pt"}}>
           {this.props.children}
           </CardText>
           </Card>
