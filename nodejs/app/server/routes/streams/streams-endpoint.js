@@ -21,21 +21,56 @@ const config = require.main.require('./app/server/config/application');
 
 endpt.use('/jobs', require('./jobs-endpoint'));
 
-endpt.post('/sacreds', function(req, res, next) {
-  if (!config.streaming_analytics ) {
+function getMissingSACredsMsg(next){
+
     var errmsg = 'You must bind  the  Streaming Analytics service to this application.\n';
     errmsg += 'Check that the service was correctly deployed, is called "Streaming-Analytics", and is bound to this application.'
     err = new Error(errmsg);
     err.status = HttpStatus.BAD_REQUEST;
-    console.log("GET /creds request: Error retrieving Streaming analytics credentials");
+    return err;
+
+}
+function build_credentialsObj(){
+  var credsJSON = {}
+  var creds = [];
+  var obj = {};
+  obj.name = "Streaming-Analytics";
+  obj.credentials = config.streaming_analytics;
+  creds[0] = obj;
+  credsJSON["streaming-analytics"] = creds;
+  return credsJSON;
+}
+endpt.post('/sacreds', function(req, res, next) {
+
+  if (!config.streaming_analytics ) {
+    err = getMissingSACredsMsg();
+    console.log("GET /sacreds request: Error retrieving Streaming analytics credentials");
     return next(err);
 
   }
-  res.send({sas: config.streaming_analytics});
+  logger.info("returning credentials for service");
+  var credsJSON=build_credentialsObj();
+  
+  res.send({sas: credsJSON});
 
 });
 
 
+
+endpt.get('/sacfgfile', function(req, res, next) {
+  if (!config.streaming_analytics ) {
+    err = getMissingSACredsMsg();
+    console.log("GET /sacreds request: Error retrieving Streaming analytics credentials");
+    return next(err);
+
+  }
+  logger.info("returning credentials for SA service as a file");
+  // Construct device File
+  var credsJSON=JSON.stringify(build_credentialsObj(), null, '\t');
+  res.set('Content-Disposition', 'attachment; filename=credentials.cfg');
+  res.set('Content-Type', 'application/octet-stream');
+  res.send(credsJSON);
+  });
 
 endpt.get('/iotauth', function(req, res, next) {
   if (!config.iot_platform) {
@@ -47,7 +82,7 @@ endpt.get('/iotauth', function(req, res, next) {
     return next(err);
 
  }
-  logger.info("returning credentials for service");
+  logger.info("returning credentials for IOT service");
   // Construct device File
   var auth = 'org=' +config.iot_platform.org;
   auth += '\napiKey=' + config.iot_platform.apiKey;

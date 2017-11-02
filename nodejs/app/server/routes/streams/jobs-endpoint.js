@@ -20,14 +20,14 @@ const logger = require.main.require('./app/server/common/logger');
 
 // Common streams status to return
 const status_in_progress = null;
-const status_failed = { job_count: 0 };
+
 
 // Get Jobs that are currently running
 endpt.get('/', function(req, res, next) {
   io.emit('streamjobs', status_in_progress);
   streams.getRunningJobs(config.streaming_analytics, function (err, status) {
     if (err) {
-      io.emit('streamjobs', status_failed);
+      io.emit('streamjobs', failed(err));
       return next(err);
     }
     //var r
@@ -37,6 +37,10 @@ endpt.get('/', function(req, res, next) {
   });
 });
 
+function failed(err){
+  const status_failed = { job_count: 0, failed: true, error:err.message };
+  return status_failed;
+}
 function getIotJobStatus(status){
   var jobs = status.jobs;
   var i = 0;
@@ -56,7 +60,7 @@ function getIotJobStatus(status){
         break;
     }
   }
-  iot_job_status = {"id"  : id, state: status.state, "found": found, "healthy": health, "job_count": status.job_count};
+  iot_job_status = {failed: false, "id"  : id, state: status.state, "found": found, "healthy": health, "job_count": status.job_count};
 
   return iot_job_status;
 }
@@ -65,7 +69,7 @@ endpt.get('/iotplatformjob', function(req, res, next) {
   io.emit('iotplatformjob', status_in_progress);
   streams.getRunningJobs(config.streaming_analytics, function (err, status) {
     if (err) {
-      io.emit('iotplatformjob', status_failed);
+      io.emit('iotplatformjob', failed(err));
       return next(err);
     }
     //var r
@@ -80,7 +84,7 @@ endpt.post('/', function(req, res, next) {
   io.emit('iotplatformjob', status_in_progress);
   streams.deploysab(config.streaming_analytics, config.streaming_app, function (err, status) {
     if (err) {
-      io.emit('iotplatformjob', status_failed);
+      io.emit('iotplatformjob', failed(err));
       return next(err);
     }
 
@@ -95,7 +99,7 @@ endpt.post('/', function(req, res, next) {
 endpt.delete('/', function(req, res, next) {
   io.emit('iotplatformjob', status_in_progress);
   streams.stopJobs(config.streaming_analytics, config.streaming_app, function (err, status) {
-    io.emit('iotplatformjob', status_failed);
+    io.emit('iotplatformjob', failed(err));
     if (err) {
       return next(err);
     }
