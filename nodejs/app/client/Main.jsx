@@ -29,11 +29,13 @@ import FlatButton from 'material-ui/lib/flat-button';
 const _ = require('lodash');
 const request = require('superagent');
 
+
+
 class Main extends BaseComponent {
   constructor(props, context) {
     super(props, context);
     this._bind('showPage','getChildContext');
-    //this varible determines which page will be shown; "StreamsJobs/Welcome, or Settings"
+    //this variable determines which page will be shown; "StreamsJobs/Welcome, or Settings"
     this.state = {
       current_page: "home"
     };
@@ -66,16 +68,17 @@ class Main extends BaseComponent {
 
    const button_style = {
      margin: 12,
-     fontSize: 15
+     fontSize: "13pt"
    };
 
     return (
       <div>
-        <AppBar style={{color: AppTheme.primary1Color}}
+
+        <AppBar style={{color: AppTheme.palette.primary1Color}}
           showMenuIconButton={false}
-          title={`Streams IoT Starter Kit`}
+          title={`Streams IoT Starter Kit`} titleStyle={{fontSize: "25pt", color: AppTheme.cardTitleColor}}
         />
-        <Toolbar>
+        <Toolbar  >
          <ToolbarGroup firstChild={true}>
         <FlatButton style={button_style} label="Home" onTouchTap={this.showPage('home')}/>
         <FlatButton style={button_style}  label="Tools" onTouchTap={this.showPage('tools')}/>

@@ -8,11 +8,9 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
-import { Card, CardHeader, CardText, CardActions } from 'material-ui/lib/card';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/lib/table';
-
 import RaisedButton from 'material-ui/lib/raised-button';
 import DownloadButton from './DownloadButton';
+import CustomCard from './CustomCard';
 
 import AppTheme from './style/theme';
 import BaseComponent from './common/BaseComponent';
@@ -63,25 +61,10 @@ class StreamsReqs extends BaseComponent {
       const disableButton = _.isEmpty(this.state.sas_creds);
 
       return (
-        <Card >
-          <CardHeader title="Streaming analytics credentials"
-          titleColor={AppTheme.cardTitleColor}
-          subtitle="Credentials and steps needed for your Streaming Analytics application to receive events from the Watson IoT Platform."
-          subtitleColor={AppTheme.cardSubtitleColor} style={{
-            backgroundColor: AppTheme.palette.primary2Color}} titleStyle={{
-            fontSize: 'large'
-          }}/>
-
-          <CardText >
-          <h3>1. Watson IoT Platform API Keys</h3>
-          You need these credentials to submit the <code>IotPlatformBluemix</code> application. This is a Streams application that pulls events from the Watson IoT Platform. Once the <code>IoTPlatformBluemix</code> application is running, any other Streams application running in the same instance can access those events.
-        <br/>
-         <DownloadButton name="watson_iot_auth.txt" uri="/api/streams/iotauth" label="Download credentials as property file"/>
+        <div>
+ 
+          <b>1. Streaming Analytics Service credentials</b>
           <br/>
-
-          <br/>
-          <hr/>
-          <h3>2. Streaming Analytics Service credentials</h3>
           These credentials are needed if you are going to create a Streams application using the Python or Java API.
           <br/>  <textarea
               readOnly
@@ -94,12 +77,20 @@ class StreamsReqs extends BaseComponent {
             />
 
           <br/>
-          <RaisedButton label="Get credentials" onTouchTap={this.doGetCreds} />
-          <br/>
-          <span>{this.state.errmsg}</span>
-  </CardText>
+          <RaisedButton  secondary={true} label="Get credentials" onTouchTap={this.doGetCreds} />
+          <br/>   <br/>         <DownloadButton name="credentials.cfg" uri="/api/streams/sacfgfile" label="Download credentials as JSON"/>
 
-        </Card>
+          <span>{this.state.errmsg}</span>
+          <hr/><h4>2. Watson IoT Platform API Keys</h4>
+          You need these credentials to submit the <code>IotPlatformBluemix</code> application. This is a Streams application that pulls events from the Watson IoT Platform. Once the <code>IoTPlatformBluemix</code> application is running, any other Streams application running in the same instance can access those events.
+        <br/>
+         <DownloadButton name="watson_iot_auth.txt" uri="/api/streams/iotauth" label="Download API Keys as property file"/>
+          <br/>
+
+          <br/>
+
+
+  </div>
 
       )
     };

@@ -8,17 +8,10 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/lib/table';
-import { Card, CardHeader, CardText } from 'material-ui/lib/card';
 import Download from 'material-ui/lib/svg-icons/file/file-download';
 import Howto from './Howto';
+import Paper from 'material-ui/lib/paper';
+import CustomCard from './CustomCard';
 
 import AppTheme from './style/theme';
 import BaseComponent from './common/BaseComponent';
@@ -45,16 +38,10 @@ class Welcome extends BaseComponent {
 
   render() {
   const header_style = {
-    textAlign: 'center',
-    color: AppTheme.palette.primary1Color
+    color: AppTheme.palette.primary2Color
   };
-  const div_style = {
-    display: 'inline-block'
-  };
-  const button_style = {
-    margin: 20,
-    fontSize: 20
-  };
+
+
 
 
 
@@ -62,60 +49,65 @@ class Welcome extends BaseComponent {
         <div>
         <div style={header_style}>
         <h1>Welcome to the Streams IoT Starter Kit</h1>
-        <h3>Your Streaming Analytics service and Watson IoT Platform services have been set up. You are now ready to create Streams applications to analyze data from edge devices.</h3>
-      </div>
-      <Card style={button_style}><CardHeader   subtitleColor={AppTheme.cardSubtitleColor}
-          style={{backgroundColor:      AppTheme.palette.primary2Color}}
-            titleStyle={{fontSize: 25}}  title="Get Started"
-            />
-         <CardText>
+        </div>
 
-        <br/>
 
-        <Table width="100%" selectable={false}>
-
-       <TableBody displayRowCheckbox={false}>
-                <TableRow>
-                  <TableRowColumn style={{
-                      whiteSpace: "normal",
-                      wordWrap: "break-word"
-                    }} width="50%"><h3>This short animation shows how data moves from IoT devices to Streams applications.</h3><br/>
-                  <video width="600" height="400" controls src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2017/10/iotanimation-video.mp4" type="video/mp4">
-                       Your browser does not support the video tag. <a href="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2017/10/iotanimation-video.mp4">Watch it here.</a>
-                  </video>
-                  </TableRowColumn>
-                  <TableRowColumn style={{
-                      whiteSpace: "normal",
-                      wordWrap: "break-word"
-                    }} width="50%"><h3>Get Started</h3>
-                  <p><b>1. Create an Edgent application</b><br/>Follow this recipe to <a href="https://developer.ibm.com/recipes/tutorials/send-events-to-the-watson-iot-platform-from-a-raspberry-pi-running-apache-edgent/">
-                                        create an Edgent application that sends data to the Watson IoT platform</a>.
+              <p >  The Streaming Analytics service and Watson IoT Platform services have been set up.
+                <br/>
+                 In addition, all the necessary credentials for the services have been created for you.
+                 When you need these credentials you can retrieve them by clicking <b>View all Credentials</b> above.
                   </p>
-                  <p><b>2. Submit the <code>IotPlatform</code> application</b><br/>
-                  Click "Tools" above to submit the job if it is not running.
-                  </p>
-                  <p><b>3. Create a Streams application</b><br/>
-                    For <b>SPL and Java</b>, complete the follow up to the Edgent recipe to
-                    <br/>
-<a href="https://developer.ibm.com/recipes/tutorials/connect-apache-edgent-to-the-streaming-analytics-service-using-the-watson-iot-platform/">
-                  Create a Streams application that processes the data from Edgent</a>
-                  </p>
-                  <p><b>For Python,</b> this <a href="https://github.com/IBMStreams/samples/blob/master/IoT/WeatherStationApp/Detect%2Bmalfunctioning%2Bsensors%2Bin%2Breal%2Btime.ipynb" target="blank">Python notebook </a>walks you through creating a Streams application. <br/> An Edgent application that generates data is provided.
 
 
-                   Note: Some of these tutorials give instructions to<br/>create credentials.These credentials have already been created for you.<br/> Retrieve them by clicking "View Credentials" above.
-                  </p>
-                  <h4>More Resources</h4>
-                  <a href="https://developer.ibm.com/streamsdev/docs/cheat-sheet-connecting-edgent-streams-applications/">Cheatsheet for connecting Edgent and Streams applications</a>
-                  <br/><a href="https://github.com/IBMStreams/samples/blob/master/IoT/ReadEdgentEvents/">Sample Streams applications on Github</a>
-</TableRowColumn>
-                </TableRow>          </TableBody>
-        </Table>
+
+                <CustomCard title="Overview" align="center">
+
+                   This animation shows how data moves from IoT devices to Streams applications.<br/>
+                  <video
+                    autoPlay="autoPlay"
+                    width="700" height="600"
+                    controls
+                    src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2017/10/iotanimation-video.mp4" type="video/mp4">
+                               Your browser does not support the video tag. <a href="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2017/10/iotanimation-video.mp4">Watch it here.</a>
+                          </video>
+
+                          </CustomCard>
 
 
-            </CardText></Card>
+      <CustomCard title="Try it Out" align="left" >
+
+                    You can try out a complete Edgent-Streams scenario with the IoT sensors application. The Edgent part of the application sends events from a simulated sensor to the Watson IoT Platform. The Streams application retrieves those events and sends commands back to the Edgent application.
+                          <ol><li><b>Run the sample Edgent application on your device:</b>
+                            <ul>
+                            <li><a href="/api/iot/devicecfg">Download your device.cfg file</a></li>
+                            <li><a href="https://edgent.apache.org/docs/downloads.html">Download and unpack Edgent</a>, choose a binary release</li>
+                            <li><code>cd &lt;edgent&gt;/java8/scripts/connectors/iotp</code></li>
+                            <li>Edgent 1.1.0+: Edit <code>runiotpsensors.sh</code> to uncomment out the line starting with <code>USE_OLD_EVENT_FORMAT</code></li>
+                            <li><code>./runiotpsensors.sh device.cfg </code>
+                            <br/>The application will start sending simulated temperature readings to the Watson IoT Platform.
+                          <br/><br/></li>  </ul>
+                          </li>
+        <li><b>Submit the <code>IotPlatform</code> application</b><br/>
+                          Click "Tools" above to submit the job if it is not running.<br/><br/>
+                          </li>
+                          <li><b>Download and run the Streams application</b><br/>
+                           <ul><li><a href="https://streams-github-samples.mybluemix.net/?get=IoT%2FReadEdgentEvents%2Fjava%2FStreamingAnalyticsAndEdgent">Java sample application</a></li>
+                            <li><a href="https://streams-github-samples.mybluemix.net/?get=IoT%2FReadEdgentEvents%2Fpython%2FStreamsPythonAndEdgent%2F">Python sample application</a></li>
+                            <li><a href="https://github.com/IBMStreams/streamsx.iot/releases/download/v1.1.1/com.ibm.streamsx.iot.sample.edgent.IotpSensors.sab">SPL sample application</a></li>
+                            </ul>
+
+                            Once the application is running, it will start sending commands back to your Edgent application. You should see output like this:
+                            <br/><code>{'"name":"A","reading":....'}<br/>
+        <b>Alert code: 249<br/></b>
+        {'"name":"A","reading":....'}</code>
+        </li>
+                           </ol>
+                           <h3>Next, create your own application by following the steps below.</h3>
+
+                           </CustomCard>
 
 
+<Howto/>
         </div>
     )
   };

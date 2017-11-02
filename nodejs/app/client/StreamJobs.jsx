@@ -9,7 +9,7 @@
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
 import { Card, CardText, CardHeader, CardActions } from 'material-ui/lib/card';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/lib/table';
+import CustomCard from './CustomCard';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 import Refresh from 'material-ui/lib/svg-icons/navigation/refresh';
@@ -25,12 +25,12 @@ class StreamJobs extends BaseComponent {
   constructor(props, context) {
     super(props, context);
 
-    this._bind('componentDidMount', 'refreshJobStatus', 'stopJobs', 'submitJobs');
+    this._bind('componentDidMount', 'updateStatus', 'refreshJobStatus', 'stopJobs', 'submitJobs');
     this.state = {
       foundJob : false,
       healthy  : false,
       disableActions: false,
-      jobCount: 0,
+      jobCount: 0, failed: false, err: "",
       recentSubmit:  false
     };
   }
@@ -41,6 +41,13 @@ class StreamJobs extends BaseComponent {
       .end(null);
   }
 
+  updateStatus() {
+    //clear this so it doesn't keep refreshing indefinitely.
+    if (self.state.recentSubmit){
+      self.setState({recentSubmit: false});
+   }
+    this.refreshJobStatus();
+  }
 
   stopJobs() {
     request.delete('/api/streams/jobs')
@@ -61,24 +68,34 @@ class StreamJobs extends BaseComponent {
     //results of the REST request to stop a job.
     this.socket.on('iotplatformjob', function(status) {
       if (status == null) {
+      //null status means in progress
         self.setState({
           disableActions: true,
 
         });
       } else {
-        if (status.found && status.healthy){
-           if (self.state.recentSubmit){
-             self.setState({recentSubmit: false});
-          }
-        }
-        //json object is returned with the state of the iotplatformbluemix job
-        self.setState({
-            foundJob: status.found,
+        if (status.failed){
+          self.setState({
             disableActions: false,
-            jobCount: status.job_count,
-            healthy: status.healthy,
-            id : status.id
+              failed: true, err: status.error
           });
+        } else {
+           if (status.found && status.healthy){
+             if (self.state.recentSubmit){
+               self.setState({recentSubmit: false});
+            }
+          }
+          //json object is returned with the state of the iotplatformbluemix job
+          self.setState({
+              failed: false,
+              foundJob: status.found,
+              disableActions: false,
+              jobCount: status.job_count,
+              healthy: status.healthy,
+              id : status.id
+            });
+
+        }
         }
     });
     this.refreshJobStatus();
@@ -98,17 +115,25 @@ class StreamJobs extends BaseComponent {
 
 
     if (!this.state.disableActions) {
-        if (found && this.state.healthy) {
-          message = "The IotPlatform application is running and healthy in your instance. You're all set! Job Id: " + this.state.id;
-        } else if (found && !this.state.healthy && !this.state.recentSubmit) {
-          message = "The IotPlatform application is running but is unhealthy. You might need to stop the job and re-start it. Job Id: " + this.state.id + ". Visit the Streams Console for more information.";
-        } else if (found && !this.state.healthy && this.state.recentSubmit) {
-          message = "The IotPlatform application is starting up. If it remains in this state for a long time, please check the job in the Streams Console.";
-        } else if  (!found && this.state.recentSubmit) {
-          message = "The IotPlatform application is starting up.";
-          setTimeout(this.refreshJobStatus, 4000);
+        if (this.state.failed){
+          if (this.state.recentSubmit){
+            message = "Failed to start the  IotPlatform application: " + this.state.err + ". Please try again later";
+          } else {
+          message = "Error occurred contacting the Streaming Analytics service: " + this.state.err + ". Please try again later";
+          }
         } else {
-          message = "The IotPlatform application is not currently running in your instance. Click 'Submit Jobs' below to start it.";
+          if (found && this.state.healthy) {
+            message = "The IotPlatform application is running and healthy in your instance. You're all set! Job Id: " + this.state.id;
+          } else if (found && !this.state.healthy && !this.state.recentSubmit) {
+            message = "The IotPlatform application is running but is unhealthy. You might need to stop the job and re-start it. Job Id: " + this.state.id + ". Visit the Streams Console for more information.";
+          } else if (found && !this.state.healthy && this.state.recentSubmit) {
+            message = "The IotPlatform application is starting up. If it remains in this state for a long time, please check the job in the Streams Console.";
+          } else if  (!found && this.state.recentSubmit) {
+            message = "The IotPlatform application is starting up. If it remains in this state for a long time, please check the job in the Streams Console.";
+            setTimeout(this.updateStatus, 4000);
+          } else {
+            message = "The IotPlatform application is not currently running in your instance. Click 'Submit Jobs' below to start it.";
+          }
         }
     }
 
@@ -116,38 +141,28 @@ class StreamJobs extends BaseComponent {
 
 
     return (
-      <Card>
-        <CardHeader
-          title="Submit the IotPlatform application"
-        titleColor={AppTheme.cardTitleColor} subtitleColor={AppTheme.cardSubtitleColor}
-          style={{
-            backgroundColor: AppTheme.palette.primary2Color
-          }}
-          titleStyle={{
-            fontSize: 'large'
-          }}
-        />
-        <CardText>
+      <CustomCard
+          title="Submit the IotPlatform application">
         The <code>IotPlatform</code> or <code>IotPlatformBluemix</code> application is a helper application that connects to the Watson IoT Platform.  This job must first be running in your instance before your Streams application can ingest data from IoT devices.  The current status of the application in your instance is displayed below. <br/>For your convenience, you can submit the application here if it is not running.<br/>
-        </CardText>
-        <CardText>{message} </CardText>
+
+        {message}
         <CardActions>
           <RaisedButton
             label={refreshText}
             disabled={refreshDisable}
-            icon={<Refresh />}
+            icon={<Refresh />} secondary={true}
             onMouseDown={this.refreshJobStatus}
           />
-          <RaisedButton
+          <RaisedButton secondary={true}
             label={jobButtonText}
             icon={jobButtonIcon}
             disabled={refreshDisable}
             onMouseDown={jobButtonAction}
           />
         </CardActions>
-        <CardText><h3>More information</h3>Go to the <a target="blank" href="https://console.bluemix.net/dashboard/">Bluemix dashboard</a> to launch the Streams Console.</CardText>
+        <h4>Manage your instance</h4>Go to the <a target="blank" href="https://console.bluemix.net/dashboard/">IBM Cloud dashboard</a> to launch the Streams Console.
 
-      </Card>
+      </CustomCard>
     )
   };
 }

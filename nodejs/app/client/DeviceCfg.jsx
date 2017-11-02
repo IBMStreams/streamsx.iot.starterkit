@@ -8,7 +8,8 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
-import { Card, CardHeader, CardText } from 'material-ui/lib/card';
+import CustomCard from './CustomCard';
+
 import DownloadButton from './DownloadButton';
 
 import AppTheme from './style/theme';
@@ -50,16 +51,13 @@ class DeviceCfg extends BaseComponent {
     const appVersion = process.env.npm_package_version;
 
     return (
-      <Card  >
-        <CardHeader title="Registered device info"
-        titleColor={AppTheme.cardTitleColor}
-        subtitle="A device has already been registered with the Watson IoT platform. Use these credentials to send events from your Edgent application to the Streams via the Watson IoT platform."
-        subtitleColor={AppTheme.cardSubtitleColor} style={{
-          backgroundColor: AppTheme.palette.primary2Color
-        }} titleStyle={{
-          fontSize: 'large'
-        }}/>
-        <CardText>
+    <div>
+        <b>Registered device info</b>
+        <br/>
+        A device has already been registered with the Watson IoT platform. Use these credentials to send events from your Edgent application to the Streams via the Watson IoT platform.
+        <br/><br/>
+
+
           <textarea
             readOnly
             style={{resize: 'none'}}
@@ -71,8 +69,8 @@ class DeviceCfg extends BaseComponent {
           <br />
           <DownloadButton name="device.cfg" uri="/api/iot/devicecfg"  label="Download device.cfg"/>
           <br/>
-        </CardText>
-      </Card>
+
+          </div>
     )
   };
 }

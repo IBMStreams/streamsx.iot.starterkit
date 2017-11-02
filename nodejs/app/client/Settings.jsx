@@ -13,27 +13,34 @@ import {Tabs, Tab} from 'material-ui/lib/tabs';
 import BaseComponent from './common/BaseComponent';
 import DeviceCfg from './DeviceCfg';
 import StreamsReqs from './StreamsReq';
+
+import AppTheme from './style/theme';
+
 class Settings extends BaseComponent {
   constructor(props, context) {
     super(props, context);
   }
 
   render() {
-    const paper_style = {
-      margin: 20
-    };
+  const paper_style = {
+    padding: 20
+  };
+  const tab_style = {
+    fontSize: "13pt", color: AppTheme.cardTitleColor
+  };
+
 
     return (
 
-  <Tabs>
- <Tab label="Edgent credentials" >
-        <Paper zDepth={2} style={paper_style}>
+  <Tabs style={{margin: 20}}>
+ <Tab  style={tab_style} label="Edgent credentials" >
+        <Paper style={paper_style} zDepth={2} >
           <DeviceCfg/>
         </Paper>
         </Tab>
-        <Tab label="Streams credentials" >
+        <Tab style={tab_style} label="Streams credentials" >
 
-        <Paper zDepth={2} style={paper_style}>
+        <Paper style={paper_style} zDepth={2} >
           <StreamsReqs/>
         </Paper>
 

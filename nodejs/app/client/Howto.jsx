@@ -6,11 +6,14 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
-import { Card, CardHeader, CardText, CardActions } from 'material-ui/lib/card';
-import {Tabs, Tab} from 'material-ui/lib/tabs';
+import CustomCard from './CustomCard';
+
+
 import DownloadButton from './DownloadButton';
 import AppTheme from './style/theme';
 import BaseComponent from './common/BaseComponent';
+
+
 const _ = require('lodash');
 const request = require('superagent');
 
@@ -20,56 +23,36 @@ class Howto extends BaseComponent {
   }
 
   render(){
-  const card_style = {
-    margin: 20
-  };
 
     return(
     <div>
 
 
+    <CustomCard align="left" title="Create your own Edgent-Streams application">
 
-    <Card style={card_style} >
-      <CardHeader title="Overview"
 
-      subtitle="Summary of the steps required to create an Edgent-Streams application."
-      subtitleColor={AppTheme.cardSubtitleColor}
-      style={{backgroundColor:
-       AppTheme.palette.primary2Color}}
-        titleStyle={{fontSize: 'large'
-      }}/>
-<CardText>
-      <Tabs>
-      <Tab label="1. Send events from Edgent to Streams">
-      <ul>
-      <li><a href="https://edgent.apache.org">Download Edgent</a>
-      </li>
-      <li> To send data to the Watson IoT platform you need a registered device and its credentials.
-      A device has been registered for you, so just download its credentials so you can  use it from your Edgent application to connect to the platform.
-    <br/>
-    <DownloadButton
-    name="device.cfg"
-     label="Download device credentials" uri="/api/iot/devicecfg"/>
+<ol><li><b>Create an Edgent application that sends data to the Watson IoT Platform </b><br/>
+  <a target="blank" href="https://developer.ibm.com/recipes/tutorials/send-events-to-the-watson-iot-platform-from-a-raspberry-pi-running-apache-edgent/">Follow this recipe to see how to do so on a device such as a Raspberry Pi</a>
+  <br/> You will need a <a href="/api/iot/devicecfg">device.cfg file</a> file to follow along.
 
-      </li>
-      <li>Create an application and send a data stream, using your device.cfg file.<br/><a href="https://developer.ibm.com/streamsdev/docs/cheat-sheet-connecting-edgent-streams-applications/#sendedgent">See this cheat sheet for examples</a></li>
-      </ul>
+</li>
+<li><b>Submit the <code>IotPlatform</code> application</b><br/>
+                        Click "Tools" above to submit the job if it is not running.
+</li>
+<li>
+<b>Create a Streams application to process events from Edgent</b><br/>
+                            <a href="https://developer.ibm.com/recipes/tutorials/connect-apache-edgent-to-the-streaming-analytics-service-using-the-watson-iot-platform/">Complete the follow up to the Edgent recipe</a>
 
-</Tab>
-      <Tab label="2. Process events from Edgent with Streams">
-
-      You need to:
-      <ul>
-      <li> Connect to the Watson IoT platform to retreive data from your edge device. To do this,  launch the <code>IotPlatform</code> application by going to the "Tools" page above.
         </li>
-        <li> Create a Streams application using Java, SPL or Python,  <a href="https://developer.ibm.com/streamsdev/docs/cheat-sheet-connecting-edgent-streams-applications/">as documented in this cheat sheet</a>.</li>
+</ol>
 
-        </ul>
-      </Tab>
-      </Tabs>
-      </CardText>
-      </Card>
-        <br/>
+
+                            <h4>More Resources</h4>
+                            <a target="blank" href="https://developer.ibm.com/streamsdev/docs/cheat-sheet-connecting-edgent-streams-applications/">Cheatsheet for connecting Edgent and Streams applications</a>
+                            <br/><a href="https://github.com/IBMStreams/samples/blob/master/IoT/">Sample Streams applications on Github</a>
+
+    </CustomCard  >
+
       </div>
     )
 

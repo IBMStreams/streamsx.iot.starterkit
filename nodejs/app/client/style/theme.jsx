@@ -17,8 +17,9 @@ export default {
   zIndex : zIndex,
   fontFamily : 'Roboto, sans-serif',
   palette : {
-    primary1Color: '#37474f',
-    primary2Color: '#90c5a9',
+    primary1Color: '#0B3D6C',
+    primary2Color: '#000000',
+
     primary3Color: Colors.indigo100,
     accent1Color: Colors.orange800,
     accent2Color: Colors.grey100,
@@ -30,10 +31,9 @@ export default {
     disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
     pickerHeaderColor: Colors.indigo500
   },
-
   // Custom elements
-  cardTitleColor : '#293E6A',
-  cardSubtitleColor : Colors.darkBlack,
-  cardActionsBackground : '#7A9A95',
+  cardTitleColor : 'white',
+  cardSubtitleColor : 'white',
+  cardActionsBackground :"#0B3D6C",
 
 };

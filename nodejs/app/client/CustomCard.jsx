@@ -10,32 +10,37 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import Download from 'material-ui/lib/svg-icons/file/file-download';
 import AppTheme from './style/theme';
 import BaseComponent from './common/BaseComponent';
-//Reusable component to show a "Download" button. Used to download the various config files needed
-// Expected properties are label and uri , label and file for the button that will be displayed, and uri for the file to download.
-// Used by DeviceCfg.jsx and Howto.jsx
-class DownloadButton extends BaseComponent {
-  constructor(props, context) {
-    super(props,context);
-  }
+import { Card, CardHeader, CardText } from 'material-ui/lib/card';
+
+
+
+class CustomCard extends BaseComponent {
+
 
   render(){
 
 
-    return(
-    <div>
-    <form action={this.props.uri} method="get">
-     <RaisedButton secondary={true}
-        label={this.props.label}
-      type="submit"
-      download={this.props.name}
-        icon={<Download />}/>
+    return (
+        <Card style={{ margin: "20"}}>
+          <CardHeader
+          titleColor={AppTheme.cardTitleColor}
+          subtitleColor={AppTheme.cardSubtitleColor}
+          style={{backgroundColor:      AppTheme.palette.primary1Color}}
+          titleStyle={{fontSize: "19pt"}}
+          title = {this.props.title}
+          subtitleStyle={{fontSize: "12pt"}}
+          subtitle ={this.props.subtitle}
 
-      </form>
+          />
+          <CardText style={{textAlign: this.props.align, fontSize: "15pt"}}>
+          {this.props.children}
+          </CardText>
+          </Card>
 
-      </div>)
+      )
 
     }
 
 
 }
-export default DownloadButton;
+export default CustomCard;
