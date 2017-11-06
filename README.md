@@ -54,7 +54,7 @@ Visit the home page to try out the sample application and get your credentials.
 
 2. Submit the `IotPlatformBluemix` application to your Streams instance. Click "Tools" on the starter kit home page and click *Submit IoTPlatform Job* if it is not running.
 
-3. Run a sample Streams appplication in Python, SPL, or Java.
+3. Run a sample Streams appplication in [Python, SPL, or Java](https://github.com/IBMStreams/samples/tree/master/IoT/ReadEdgentEvents/).
    - For Python and Java, download credentials for your Streaming analtyics service by clicking "Streams Credentials" > "Download credentials as JSON".
 
 
