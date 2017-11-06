@@ -49,9 +49,9 @@ endpt.post('/sacreds', function(req, res, next) {
 
   }
   logger.info("returning credentials for service");
-  var credsJSON=build_credentialsObj();
   
-  res.send({sas: credsJSON});
+
+  res.send({sas: config.streaming_analytics});
 
 });
 
