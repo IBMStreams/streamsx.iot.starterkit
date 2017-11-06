@@ -40,8 +40,10 @@ class Howto extends BaseComponent {
                         Click "Tools" above to submit the job if it is not running.
 </li>
 <li>
-<b>Create a Streams application to process events from Edgent</b><br/>
-                            <a href="https://developer.ibm.com/recipes/tutorials/connect-apache-edgent-to-the-streaming-analytics-service-using-the-watson-iot-platform/">Complete the follow up to the Edgent recipe</a>
+<b>Create a Streams application to process events from Edgent</b> by   <a href="https://developer.ibm.com/recipes/tutorials/connect-apache-edgent-to-the-streaming-analytics-service-using-the-watson-iot-platform/"> completing the follow up to the Edgent recipe</a>
+<br/> For Python and Java applications, you will need your Streaming Analytics <a href="/api/streams/sacfgfile">credentials</a> file to follow along.
+
+
 
         </li>
 </ol>

@@ -90,11 +90,12 @@ class Welcome extends BaseComponent {
         <li><b>Submit the <code>IotPlatform</code> application</b><br/>
                           Click "Tools" above to submit the job if it is not running.<br/><br/>
                           </li>
-                          <li><b>Download and run the Streams application</b><br/>
-                           <ul><li><a href="https://streams-github-samples.mybluemix.net/?get=IoT%2FReadEdgentEvents%2Fjava%2FStreamingAnalyticsAndEdgent">Java sample application</a></li>
+                          <li><b>Run the Streams application</b><br/>
+                           <ul><li>Submit the <a href="https://github.com/IBMStreams/streamsx.iot/releases/download/v1.1.1/com.ibm.streamsx.iot.sample.edgent.IotpSensors.sab">SPL sample application</a> to your Streams instance.</li>
+                          <li> For Python and Java applications, first download your Streaming Analytics <a href="/api/streams/sacfgfile">credentials</a> file, and follow the instructions in the sample to run it.</li>
+   <li><a href="https://streams-github-samples.mybluemix.net/?get=IoT%2FReadEdgentEvents%2Fjava%2FStreamingAnalyticsAndEdgent">Java sample application</a></li>
                             <li><a href="https://streams-github-samples.mybluemix.net/?get=IoT%2FReadEdgentEvents%2Fpython%2FStreamsPythonAndEdgent%2F">Python sample application</a></li>
-                            <li><a href="https://github.com/IBMStreams/streamsx.iot/releases/download/v1.1.1/com.ibm.streamsx.iot.sample.edgent.IotpSensors.sab">SPL sample application</a></li>
-                            </ul>
+</ul>
 
                             Once the application is running, it will start sending commands back to your Edgent application. You should see output like this:
                             <br/><code>{'"name":"A","reading":....'}<br/>
