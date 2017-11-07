@@ -9,8 +9,11 @@ The recommended way to connect IoT devices running Apache Edgent is to send the 
 Deploying this starter kit to the IBM Cloud will set up the Streaming Analytics and Watson IoT Platform services for you.  If you choose not to deploy the services automatically, or if you are using an on-prem Streams installation, you can follow these instructions to [setup Streams and the Watson IoT Platform manually](https://developer.ibm.com/streamsdev/docs/setup-instructions-connecting-edgent-streams-applications-watson-iot-platform).
 
 
-## Automatically deploy and configure the services
-You can use this option if you do not have the services service created in IBM Cloud.
+## Deploy and configure the services
+
+### Automatic Deployment
+
+You can use this option if you do not have the services created in IBM Cloud.
 Click the the **Deploy to Bluemix** button below to deploy and configure the Streaming Analytics and Watson IoT Platform services.
 
 [![Deploy To Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/natashadsilva/streamsx.iot.starter.git)
@@ -20,8 +23,27 @@ Click the the **Deploy to Bluemix** button below to deploy and configure the Str
    - Rename the Watson IoT Platform to `Internet-of-Things-Platform`. These names must match exactly as indicated here.
    Then click the **Deploy to Bluemix** button above.
 
+### Manual Deployment
 
-### View the starter kit home page
+In IBM Cloud:
+  1. Create a Streaming Analytics Service with the name `Streaming-Analytics`
+  1. Create a Watson IoT Platform Service with the name `Internet-of-Things-Platform`
+
+Then:
+* ```cd nodejs```
+* ```npm install```
+* ```npm run build```
+* ```cd ..```
+* ```cf push -n <host prefix>```
+
+## Deploy locally
+* ```cd nodejs```
+* modify [app/server/config/application-local.js](nodejs/app/server/config/application-local.js), and fill in the credentials for the services where indicated.
+* ```npm install```
+* ```npm start```
+
+
+## View the starter kit home page
 
 The starter kit home page is the main access point for your credentials and the best place to get started after deploying the services.
 
