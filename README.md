@@ -36,12 +36,6 @@ Then:
 * ```cd ..```
 * ```cf push -n <host prefix>```
 
-## Deploy locally
-* ```cd nodejs```
-* modify [app/server/config/application-local.js](nodejs/app/server/config/application-local.js), and fill in the credentials for the services where indicated.
-* ```npm install```
-* ```npm start```
-
 
 ## View the starter kit home page
 
@@ -110,3 +104,13 @@ Perform the following tasks to meet the aforementioned requirements. From the ho
 
 - [Cheatsheet for connecting Edgent and Streams applications](https://developer.ibm.com/streamsdev/docs/cheat-sheet-connecting-edgent-streams-applications/)
 - [Sample Streams applications on Github](https://github.com/IBMStreams/samples/tree/master/IoT/ReadEdgentEvents)
+
+
+## Development information: Run the starter kit app locally
+If you would like to modify the node js app locally, you need to have the services created on the IBM Cloud.
+Then, after cloning the repository:
+* ```cd nodejs```
+* modify [app/server/config/application-local.js](nodejs/app/server/config/application-local.js), and fill in the credentials for the services where indicated.
+* ```npm install```
+* ```npm start```
+
