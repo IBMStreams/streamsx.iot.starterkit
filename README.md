@@ -23,18 +23,6 @@ Click the the **Deploy to Bluemix** button below to deploy and configure the Str
    - Rename the Watson IoT Platform to `Internet-of-Things-Platform`. These names must match exactly as indicated here.
    Then click the **Deploy to Bluemix** button above.
 
-### Manual Deployment
-
-In IBM Cloud:
-  1. Create a Streaming Analytics Service with the name `Streaming-Analytics`
-  1. Create a Watson IoT Platform Service with the name `Internet-of-Things-Platform`
-
-Then:
-* ```cd nodejs```
-* ```npm install```
-* ```npm run build```
-* ```cd ..```
-* ```cf push -n <host prefix>```
 
 
 ## View the starter kit home page
