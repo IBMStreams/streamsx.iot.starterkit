@@ -46,8 +46,7 @@ From the starter kit home page, you can try out the sample application and get y
 
 1. Run the IoT sensors sample from Edgent:  
    - Download your `device.cfg` file from the "View all Credentials" page of the starter kit.
-   - Download Edgent, choose a binary release
-   - Unpack Edgent
+   - [Download and unpack Edgent](https://edgent.apache.org), choose a binary release
    - Edgent 1.1.0+: Edit `runiotpsensors.sh` to uncomment out the line starting with `USE_OLD_EVENT_FORMAT`, 
    - Run the IoT sensors application:
     ```
