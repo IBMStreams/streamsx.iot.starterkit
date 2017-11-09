@@ -11,9 +11,6 @@ Deploying this starter kit to the IBM Cloud will set up the Streaming Analytics 
 
 ## Deploy and configure the services
 
-### Automatic Deployment
-
-You can use this option if you do not have the services created in IBM Cloud.
 Click the the **Deploy to Bluemix** button below to deploy and configure the Streaming Analytics and Watson IoT Platform services.
 
 [![Deploy To Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/natashadsilva/streamsx.iot.starter.git)
