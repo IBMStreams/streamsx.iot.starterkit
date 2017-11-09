@@ -1,17 +1,18 @@
 # streamsx.iot.starterkit
-This starter kit simplifies the setup for connecting Apache Edgent devices with IBM Streams applications running in the cloud.
+This starter kit simplifies the setup for using the streamsx.iot toolkit to connect Apache Edgent applications with Streams applications.
 
-The recommended way to connect IoT devices running Apache Edgent is to send the data to the Watson IoT Platform and then retrieve that data from a Streams application running locally or in the IBM Cloud, as illustrated below.
+The recommended way to analyze data from IoT devices running Apache Edgent is to send the data to the Watson IoT Platform.  Then, you can retrieve that data from a Streams application running locally or in the Streaming Analytics service in the IBM Cloud, as illustrated below.
+
 
 ![Illustration](https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2017/09/edgent-iot-streams.png)
 
+Deploying this starter kit to the IBM Cloud will set up the Watson IoT Platform and Streaming Analytics services for you. It will also create the credentials you need to connect your Streams and Edgent applications. 
 
-Deploying this starter kit to the IBM Cloud will set up the Streaming Analytics and Watson IoT Platform services for you.  If you choose not to deploy the services automatically, or if you are using an on-prem Streams installation, you can follow these instructions to [setup Streams and the Watson IoT Platform manually](https://developer.ibm.com/streamsdev/docs/setup-instructions-connecting-edgent-streams-applications-watson-iot-platform).
+If you choose not to deploy the services automatically, or if you are using an on-prem Streams installation, you can follow these instructions to [setup Streams and the Watson IoT Platform manually](https://developer.ibm.com/streamsdev/docs/setup-instructions-connecting-edgent-streams-applications-watson-iot-platform).
 
+## Deploy the starter kit
 
-## Deploy and configure the services
-
-Click the the **Deploy to Bluemix** button below to deploy and configure the Streaming Analytics and Watson IoT Platform services.
+Click the the **Deploy to Bluemix** button below to start deployment. This will take about 10-15 minutes.
 
 [![Deploy To Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/natashadsilva/streamsx.iot.starter.git)
 
@@ -22,10 +23,11 @@ Click the the **Deploy to Bluemix** button below to deploy and configure the Str
 
 
 
+# Using the starter kit
+
+After deployment is complete, the best place to get started is the starter kit home page.  
+
 ## View the starter kit home page
-
-The starter kit home page is the main access point for your credentials and the best place to get started after deploying the services.
-
 
 From the toolchain's home page, click **View App** once the deployment is done to go to the home page of your starter kit:
 ![View App](img/viewapp.png)
@@ -35,9 +37,9 @@ Clicking **View App** will take you to the home page of your starter kit:
 
 ![Sample home page](img/homepage.png)
 
-# Using the starter kit
 
-Visit the home page to try out the sample application and get your credentials.
+From the starter kit home page, you can try out the sample application and get your credentials.
+
 
 
 ##  Using the starter kit to run a complete Edgent-Streams scenario:
@@ -53,11 +55,10 @@ Visit the home page to try out the sample application and get your credentials.
      ./runiotpsensors.sh device.cfg
      ```
 
-2. Submit the `IotPlatformBluemix` application to your Streams instance. Click "Tools" on the starter kit home page and click *Submit IoTPlatform Job* if it is not running.
+2. Submit the `IotPlatform` application to your Streams instance. Click "Tools" on the starter kit home page and click *Submit IoTPlatform Job* if it is not running.
 
-3. Run a sample Streams appplication in [Python, SPL, or Java](https://github.com/IBMStreams/samples/tree/master/IoT/ReadEdgentEvents/).
+3. Run a sample Streams appplication in [Python](https://streams-github-samples.mybluemix.net/?get=IoT%2FReadEdgentEvents%2Fpython%2FStreamsPythonAndEdgent%2F), [Java](https://streams-github-samples.mybluemix.net/?get=IoT%2FReadEdgentEvents%2Fjava%2FStreamingAnalyticsAndEdgent), or [SPL](https://github.com/IBMStreams/samples/tree/master/IoT/ReadEdgentEvents/spl).
    - For Python and Java, download credentials for your Streaming analtyics service by clicking "Streams Credentials" > "Download credentials as JSON".
-
 
 
  
@@ -65,30 +66,34 @@ Visit the home page to try out the sample application and get your credentials.
 
 You need the following requirements to create your own application:
 
-- Registered device with the Watson IoT platform and its credentials in a `device.cfg` file.
-- The `IoTPlatform` application running in your instance
-- Credentials for your Streaming analtyics service. 
+- *Edgent*: For your Edgent application to connect to the Watson IoT Platform, you need a registered "device" with the platform. The "device" does not have to represent a physical device, but simply identifies your Edgent application when it tries to connect to the Watson IoT Platform. The device's credentials are used when creating your Edgent `Topology`.  Download the device credentials from the starter kit home page: 
+    - Click **View all credentials**, then under **Edgent credentials**, download your device credentials by clicking "Download device.cfg" 
+- *Java and Python Streams applications only*: credentials for your Streaming analtyics service. These are used to submit applications to the service for execution.   
+    - Click **View all credentials** > **Streams Credentials** > **Download credentials as JSON**.
+- Lastly, you need the `IoTPlatform` application running in your Streams instance.  
 
 
-### How to download credentials for use with Edgent and Streams
-Perform the following tasks to meet the aforementioned requirements. From the home page, click **View all credentials**:
+### The `IoTPlatform` application 
+This application connects to the Watson IoT Platform to retrieve events from your Edgent application. Then, it publishes the device events as Streams tuples for consumption by other Streams applications.  The following diagram illustrates:
+![iotapp](https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2017/06/iot-edgent.png)
 
-- Under "Edgent credentials", download your device credentials by clicking "Download device.cfg"
-- In the same page, download credentials for your Streaming analtyics service by clicking "Streams Credentials" > "Download credentials as JSON".
-- Before running your Streams application, submit the `IoTPlatform` application: Click “Tools” and “Submit job” if it is not running in your instance. **Note**: When submitted from this page, the application only runs for 1 hour in  order not to incur charges on your Bluemix account.  To run it indefinitely you must submit it directly to the Streaming analytics service. You will need API keys for the Watson IoT Platform. Download the API keys from the starter kit home page: **View All Credentials>Streams Credentials> Download API keys as properties file**.  This page has [manual submission instructions](https://developer.ibm.com/streamsdev/docs/setup-instructions-connecting-edgent-streams-applications-watson-iot-platform#submit)
-
-
+If your Streams application wishes to send a command to the Edgent application, the commands are also sent through the `IoTPlatform` application.  Thus, this application must be running on your instance alongside your Streams application(s).
+ 
+Click **Tools** on the starter kit home page and if the application is not running, click *Submit IoTPlatform Job*.
+ 
+**Note**: When submitted from the starter kit home page, the application only runs for 1 hour in  order not to incur charges on your IBM Cloud account.  To run it indefinitely you must submit it directly to the Streaming analytics service. You will need API keys for the Watson IoT Platform. Download the API keys from the starter kit home page: **View All Credentials > Streams Credentials > Download API keys as properties file**.  This page has [manual submission instructions](https://developer.ibm.com/streamsdev/docs/setup-instructions-connecting-edgent-streams-applications-watson-iot-platform#submit).
 
 
 ## Tutorials
+
 1. **Create an Edgent application**. Follow this recipe to [create an Edgent application that sends data to the Watson IoT platform](https://developer.ibm.com/recipes/tutorials/send-events-to-the-watson-iot-platform-from-a-raspberry-pi-running-apache-edgent/).
 
-2. **Create a Streams application**. Complete the follow up to the Edgent recipe to [create a Streams application that processes the data from Edgent](https://developer.ibm.com/recipes/tutorials/connect-apache-edgent-to-the-streaming-analytics-service-using-the-watson-iot-platform/)
+2. **Create a Streams application**. Complete the follow up to the Edgent recipe to [create a Streams application that processes the data from Edgent](https://developer.ibm.com/recipes/tutorials/connect-apache-edgent-to-the-streaming-analytics-service-using-the-watson-iot-platform/).
 
 ## More Resources
 
 - [Cheatsheet for connecting Edgent and Streams applications](https://developer.ibm.com/streamsdev/docs/cheat-sheet-connecting-edgent-streams-applications/)
-- [Sample Streams applications on Github](https://github.com/IBMStreams/samples/tree/master/IoT/ReadEdgentEvents)
+- [Sample Streams applications on Github](https://github.com/IBMStreams/samples/tree/master/IoT/ReadEdgentEvents).
 
 
 ## Development information: Run the starter kit app locally
