@@ -15,7 +15,7 @@ applications:
 declared-services:
   Streaming-Analytics:
     label: streaming-analytics
-    plan: Standard
+    plan: lite-vm
   Internet-of-Things-Platform:
     label: iotf-service
     plan: iotf-service-free
