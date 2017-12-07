@@ -12,14 +12,14 @@ If you choose not to deploy the services automatically, or if you are using an o
 
 ## Deploy the starter kit
 
-Click the the **Deploy to Bluemix** button below to start deployment. This will take about 10-15 minutes.
+Click the the **Deploy to IBM Cloud** button below to start deployment. This will take about 10-15 minutes.
 
-[![Deploy To Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/natashadsilva/streamsx.iot.starter.git)
+[![Deploy To Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBMStreams/streamsx.iot.starter.git)
 
 *Note:* If you have both services created and would like to use automatic configuration,  you need to rename the services to match the names expected by the configuration script before starting the process:
    - Rename the Streaming Analytics service to `Streaming-Analytics`
    - Rename the Watson IoT Platform to `Internet-of-Things-Platform`. These names must match exactly as indicated here.
-   Then click the **Deploy to Bluemix** button above.
+   Then click the **Deploy to IBM Cloud** button above.
 
 
 
