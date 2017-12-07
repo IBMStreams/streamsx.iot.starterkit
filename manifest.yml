@@ -10,7 +10,7 @@ applications:
   path: nodejs
   command: npm start
   instances: 1
-  memory: 512M
+  memory: 128M
 
 declared-services:
   Streaming-Analytics:
