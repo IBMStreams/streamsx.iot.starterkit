@@ -1,4 +1,7 @@
-# streamsx.iot.starterkit
+# Standard Plan branch of the streamsx.iot.starterkit 
+
+*This branch will deploy the Standard version of the Streaming Analytics service*.
+
 This starter kit simplifies the setup for using the streamsx.iot toolkit to connect Apache Edgent applications with Streams applications.
 
 The recommended way to analyze data from IoT devices running Apache Edgent is to send the data to the Watson IoT Platform.  Then, you can retrieve that data from a Streams application running locally or in the Streaming Analytics service in the IBM Cloud, as illustrated below.
