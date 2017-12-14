@@ -3,7 +3,7 @@ stages:
 - name: Build Stage
   inputs:
   - type: git
-    branch: standardplan
+    branch: ${BRANCH}
   triggers:
   - type: commit
   jobs:
