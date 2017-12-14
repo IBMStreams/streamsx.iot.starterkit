@@ -11,13 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/IBMStreams/streamsx.waterConservation.starterKit"
+    "url": "https://github.com/IBMStreams/streamsx.iot.starterkit"
   },
   "engines": {
     "node": ">=4.2.0"
   },
   "author": "IBM Canada Ltd.",
-  "license": "MIT",
+  "license": "Apache",
   "dependencies": {
     "async": "^1.5.2",
     "body-parser": "^1.15.0",
