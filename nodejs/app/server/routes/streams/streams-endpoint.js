@@ -49,7 +49,7 @@ endpt.post('/sacreds', function(req, res, next) {
 
   }
   logger.info("returning credentials for service");
-  
+
 
   res.send({sas: config.streaming_analytics});
 
@@ -82,11 +82,11 @@ endpt.get('/iotauth', function(req, res, next) {
     return next(err);
 
  }
-  logger.info("returning credentials for IOT service");
+ logger.info("returning credentials for IOT service");
   // Construct device File
   var auth = 'org=' +config.iot_platform.org;
-  auth += '\napiKey=' + config.iot_platform.apiKey;
-  auth += '\napiToken='+ config.iot_platform.apiToken +'\n';
+  auth += '\nauth-key=' + config.iot_platform.apiKey;
+  auth += '\nauth-token='+ config.iot_platform.apiToken +'\n';
 
   res.set('Content-Disposition', 'attachment; filename=watson_iot_credentials.txt');
   res.set('Content-Type', 'application/octet-stream');
