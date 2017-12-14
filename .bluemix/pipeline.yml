@@ -12,8 +12,8 @@ stages:
     build_type: npm
     script: |-
       #!/bin/bash
+      export PATH=/opt/IBM/node-v4.2/bin:$PATH   
 
-      export PATH=/opt/IBM/node-v4.4.5/bin:$PATH
       cd nodejs
       npm install
       npm run build
