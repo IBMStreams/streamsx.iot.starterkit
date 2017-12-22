@@ -8,7 +8,7 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 import DownloadButton from './DownloadButton';
 import CustomCard from './CustomCard';
 
@@ -62,7 +62,7 @@ class StreamsReqs extends BaseComponent {
 
       return (
         <div>
- 
+
           <b>1. Streaming Analytics Service credentials</b>
           <br/>
           These credentials are needed if you are going to create a Streams application using the Python or Java API.
@@ -77,7 +77,7 @@ class StreamsReqs extends BaseComponent {
             />
 
           <br/>
-          <RaisedButton  secondary={true} label="Get credentials" onTouchTap={this.doGetCreds} />
+          <RaisedButton  primary={true} label="Get credentials" onTouchTap={this.doGetCreds} />
           <br/>   <br/>         <DownloadButton name="credentials.cfg" uri="/api/streams/sacfgfile" label="Download credentials as JSON"/>
 
           <span>{this.state.errmsg}</span>
