@@ -11,7 +11,6 @@ const express = require('express');
 const path = require('path');
 const HttpStatus = require('http-status-codes');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport =  require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -137,10 +136,15 @@ if (config.server.ssl.enabled) {
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(cookieParser("so-e-p-c-q-r-3-7"));
+
 //Expire session after 1 hour
 var hour = 1000 * 60* 60; //hour in MS
-app.use(session({rolling: true, cookie: {maxAge:hour }, resave:false, saveUninitialized: false}));
+app.use(session(
+  { secret: "so-e-p-c-q-r-3-7",
+  rolling: true,
+    cookie: {maxAge:hour },
+     resave:false,
+     saveUninitialized: false}));
 
 
 app.use(passport.initialize());

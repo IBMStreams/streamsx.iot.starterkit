@@ -47,7 +47,7 @@ class DeviceCfg extends BaseComponent {
 
 
   render() {
-    const textarea = this.state.errmsg || this.state.devicecfg || 'Updating...';
+    const textarea = this.state.errmsg || this.state.devicecfg || '';
     const disableButton = _.isEmpty(this.state.devicecfg);
     const appVersion = process.env.npm_package_version;
 
@@ -64,7 +64,7 @@ class DeviceCfg extends BaseComponent {
             style={{resize: 'none'}}
             id='devicecfg'
             cols={80}
-            rows={textarea.split('\n').length}
+            rows={10}
             value={textarea}
           />
           <br />
