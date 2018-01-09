@@ -17,7 +17,7 @@ If you choose not to deploy the services automatically, or if you are using an o
 
 Click the the **Deploy to IBM Cloud** button below to start deployment. This will take about 10-15 minutes.
 
-[![Deploy To Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBMStreams/streamsx.iot.starterkit.git&branch=standardplan)
+[![Deploy To Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https%3A%2F%2Fgithub.com%2FIBMStreams%2Fstreamsx.iot.starterkit.git)
 
 *Note:* If you have both services created and would like to use automatic configuration,  you need to rename the services to match the names expected by the configuration script before starting the process:
    - Rename the Streaming Analytics service to `Streaming-Analytics`
