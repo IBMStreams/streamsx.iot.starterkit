@@ -14,7 +14,7 @@ If you choose not to deploy the services automatically, or if you are using an o
 
 Click the the **Deploy to IBM Cloud** button below to start deployment. This will take about 10-15 minutes.
 
-[![Deploy To Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBMStreams/streamsx.iot.starterkit.git)
+[![Deploy To Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https%3A%2F%2Fgithub.com%2FIBMStreams%2Fstreamsx.iot.starterkit.git)
 
 *Note:* If you have both services created and would like to use automatic configuration,  you need to rename the services to match the names expected by the configuration script before starting the process:
    - Rename the Streaming Analytics service to `Streaming-Analytics`
@@ -72,7 +72,7 @@ You need the following requirements to create your own application:
 - Lastly, you need the `IoTPlatform` application running in your Streams instance.  
 
 
-### The `IoTPlatform` application 
+### The IoTPlatform application 
 This application connects to the Watson IoT Platform to retrieve events from your Edgent application. Then, it publishes the device events as Streams tuples for consumption by other Streams applications.  The following diagram illustrates:
 ![iotapp](https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2017/06/iot-edgent.png)
 
