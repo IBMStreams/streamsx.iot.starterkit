@@ -8,8 +8,8 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
-import Paper from 'material-ui/lib/paper';
-import {Tabs, Tab} from 'material-ui/lib/tabs';
+import Paper from 'material-ui/Paper';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import BaseComponent from './common/BaseComponent';
 import DeviceCfg from './DeviceCfg';
 import StreamsReqs from './StreamsReq';

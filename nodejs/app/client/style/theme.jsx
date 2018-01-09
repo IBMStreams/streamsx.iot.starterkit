@@ -7,10 +7,10 @@
 /* All Rights Reserved.                                             */
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
-import Colors from 'material-ui/lib/styles/colors';
-import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
-import Spacing from 'material-ui/lib/styles/spacing';
-import zIndex from 'material-ui/lib/styles/zIndex';
+import Colors from 'material-ui/styles/colors';
+import {fade}  from 'material-ui/utils/colorManipulator';
+import Spacing from 'material-ui/styles/spacing';
+import zIndex from 'material-ui/styles/zIndex';
 
 export default {
   spacing : Spacing,
@@ -20,16 +20,16 @@ export default {
     primary1Color: '#0B3D6C',
     primary2Color: '#000000',
 
-    primary3Color: Colors.indigo100,
-    accent1Color: Colors.orange800,
-    accent2Color: Colors.grey100,
-    accent3Color: Colors.grey500,
-    textColor: Colors.darkBlack,
+    primary3Color: '#c5cae9',
+    accent1Color: '#ef6c00',//Colors.orange800,
+    accent2Color: '#f5f5f5',//Colors.grey100,
+    accent3Color: '#9e9e9e',//Colors.grey500,
+    textColor: 'rgba(0, 0, 0, 0.87)',//darkblack
     alternateTextColor: '#5FA292',
-    canvasColor: Colors.grey200,
-    borderColor: Colors.grey300,
-    disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
-    pickerHeaderColor: Colors.indigo500
+    canvasColor: '#eeeeee', //grey100
+    borderColor: '#e0e0e0',//grey200
+    disabledColor: fade('rgba(0, 0, 0, 0.87)', 0.3), //darkblack
+    pickerHeaderColor: '#3f51b5'
   },
   // Custom elements
   cardTitleColor : 'white',

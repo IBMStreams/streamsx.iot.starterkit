@@ -8,9 +8,9 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
-import Download from 'material-ui/lib/svg-icons/file/file-download';
+import Download from 'material-ui/svg-icons/file/file-download';
 import Howto from './Howto';
-import Paper from 'material-ui/lib/paper';
+import Paper from 'material-ui/Paper';
 import CustomCard from './CustomCard';
 
 import AppTheme from './style/theme';
