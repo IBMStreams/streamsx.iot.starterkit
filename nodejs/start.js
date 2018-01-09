@@ -67,7 +67,7 @@ if (process.env.SKPASS && process.env.SKUSER) {
 }
 
 function doLogin(username, password, done){
-  console.log("called do login " + " username " + username + " password " + password);
+  console.log("start.js line 70 called do login ");
 
   if (!auth(username, password)){
     return done({message: "Incorrect username or password. Values must match the SKUSER and SKPASS values you set when you configured your starter kit."})
@@ -78,10 +78,9 @@ function doLogin(username, password, done){
 }
 
 function auth(username, password){
-  console.log("checking auth function");
+  console.log("start.js line 81: checking auth function");
 
   if (userObj.pass && userObj.user){
-    console.log("Saved creds  user " + userObj.user  + " password "+ userObj.pass);
     if (userObj.pass === password && userObj.user === username){
       return true;
     }
@@ -90,7 +89,7 @@ function auth(username, password){
 
 }
 passport.use(new LocalStrategy(function(username, password, done) {
-  console.log("called do login " + " username " + username + " password " + password);
+  console.log("start.js line 92: ");
   console.log(done.toString())
   if (!auth(username, password)){
     return done({message: "Incorrect username or password. Values must match the SKUSER and SKPASS values you set when you configured your starter kit."})
@@ -105,11 +104,11 @@ passport.serializeUser(function (user, cb){
 });
 
 passport.deserializeUser(function(userid, cb){
-  console.log("Deserie");
+  console.log("start.js line 107");
   if (userObj.user && userid) {
 
     if (userid != userObj.user){
-      cb("Username mismatch");
+      cb("Unknown user, please log in.");
     } else {
       cb(null, {user: {id: userid}});
     }
@@ -146,13 +145,14 @@ app.get("/login", function(req, res){
   res.redirect("/");
 });
 
-function wrk(req, res, next){
-  console.log("request " + req);
+function logRequests(req, res, next){
+  console.log("request received ");
+
   next();
 }
 
 //post request to login does authentication
-app.post("/login", wrk, passport.authenticate('local', {failureRedirect: '/login'} ),function(req, res){
+app.post("/login", logRequests, passport.authenticate('local', {failureRedirect: '/login'} ),function(req, res){
   //succesful login
   res.send({auth: true})  ;
 }
@@ -162,6 +162,8 @@ function authenticationMiddleware () {
 
     if (req.isAuthenticated()) {
       return next()
+    } else {
+      console.log("unauthorized request received, redirecting.");
     }
     res.redirect('/')
   }
@@ -169,7 +171,12 @@ function authenticationMiddleware () {
 
 //use middleware to intercept requests.
  passport.authenticationMiddleware = authenticationMiddleware();
-
+ //this is the key part of the authentication.
+ //authenticationMiddleware function is called on every API call. If they aren't authenticated.
+ //we redirect to home.
+app.use("/api/*", logRequests, passport.authenticationMiddleware,  function (req, res, next){
+    next();
+} );
 app.use("/main", function(req, res, next){
   console.log(req);
   console.log("back to home");
