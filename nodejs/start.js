@@ -3,7 +3,7 @@
 /* This is an automatically generated copyright prolog.             */
 /* After initializing,  DO NOT MODIFY OR MOVE                       */
 /* **************************************************************** */
-/* (C) Copyright IBM Corp.  2016, 2017                             */
+/* (C) Copyright IBM Corp.  2016, 2018                             */
 /* All Rights Reserved.                                             */
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
@@ -58,14 +58,15 @@ var proxy = httpProxy.createProxyServer();
 var app = express();
 
 
-
+//Contains the credentials of the owner of this starter kit.
 var userObj = {};
 var NOT_SET ="Login failed, check that username and password are configured in the IBM Cloud dashboard";
-if (process.env.SKPASS && process.env.SKUSER) {
-  userObj.user = process.env.SKUSER;
-  userObj.pass = process.env.SKPASS;
+if (process.env.KIT_OWNER && process.env.KIT_PASSWORD) {
+  userObj.user = process.env.KIT_OWNER;
+  userObj.pass = process.env.KIT_PASSWORD;
 }
 
+//called by the passport API to initiate login given  the credentials.
 function doLogin(username, password, done){
   console.log("start.js line 70 called do login ");
 
@@ -77,6 +78,7 @@ function doLogin(username, password, done){
   return done(null, {user: {id: username}});
 }
 
+//This actually checks the credentials match
 function auth(username, password){
   console.log("start.js line 81: checking auth function");
 
@@ -88,6 +90,9 @@ function auth(username, password){
   return false;
 
 }
+
+///Functions for Passport api
+
 passport.use(new LocalStrategy(function(username, password, done) {
   console.log("start.js line 92: ");
   console.log(done.toString())
@@ -133,7 +138,8 @@ if (config.server.ssl.enabled) {
 app.use(bodyParser.json());
 
 app.use(cookieParser("so-e-p-c-q-r-3-7"));
-var hour = 1000 * 60* 60;
+//Expire session after 1 hour
+var hour = 1000 * 60* 60; //hour in MS
 app.use(session({rolling: true, cookie: {maxAge:hour }, resave:false, saveUninitialized: false}));
 
 
