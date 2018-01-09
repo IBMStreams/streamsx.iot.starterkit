@@ -77,7 +77,7 @@ class StreamsReqs extends BaseComponent {
             />
 
           <br/>
-          <RaisedButton  primary={true} label="Get credentials" onTouchTap={this.doGetCreds} />
+          <RaisedButton  primary={true} label="Get credentials" onClick={this.doGetCreds} />
           <br/>   <br/>         <DownloadButton name="credentials.cfg" uri="/api/streams/sacfgfile" label="Download credentials as JSON"/>
 
           <span>{this.state.errmsg}</span>

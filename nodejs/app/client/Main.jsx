@@ -8,6 +8,11 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
+import {BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+
 import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar';
 
@@ -81,10 +86,10 @@ class Main extends BaseComponent {
         />
         <Toolbar  >
          <ToolbarGroup firstChild={true}>
-        <FlatButton style={button_style} label="Home" onTouchTap={this.showPage('home')}/>
-        <FlatButton style={button_style}  label="Tools" onTouchTap={this.showPage('tools')}/>
+        <FlatButton style={button_style} label="Home" onClick={this.showPage('home')}/>
+        <FlatButton style={button_style}  label="Tools" onClick={this.showPage('tools')}/>
 
-       <FlatButton style={button_style}  label="View All Credentials" onTouchTap={this.showPage('credentials')}/>
+       <FlatButton style={button_style}  label="View All Credentials" onClick={this.showPage('credentials')}/>
 </ToolbarGroup>
   </Toolbar>
   <br/>
