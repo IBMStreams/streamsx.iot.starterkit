@@ -9,6 +9,7 @@
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
 import CustomCard from './CustomCard';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import DownloadButton from './DownloadButton';
 
@@ -20,14 +21,14 @@ const request = require('superagent');
 class DeviceCfg extends BaseComponent {
   constructor(props, context) {
     super(props, context);
-    this._bind('componentDidMount');
+    this._bind('getCfg');
     this.state = {
       errmsg: null,
       devicecfg: null
     };
   }
 
-  componentDidMount() {
+  getCfg() {
     const self = this;
     request.get('/api/iot/devicecfg')
       .end(function(err, res) {
@@ -46,7 +47,7 @@ class DeviceCfg extends BaseComponent {
 
 
   render() {
-    const textarea = this.state.errmsg || this.state.devicecfg || 'Updating...';
+    const textarea = this.state.errmsg || this.state.devicecfg || '';
     const disableButton = _.isEmpty(this.state.devicecfg);
     const appVersion = process.env.npm_package_version;
 
@@ -63,10 +64,12 @@ class DeviceCfg extends BaseComponent {
             style={{resize: 'none'}}
             id='devicecfg'
             cols={80}
-            rows={textarea.split('\n').length}
+            rows={10}
             value={textarea}
           />
           <br />
+          <RaisedButton  primary={true} label="Load device.cfg" onClick={this.getCfg} />
+          <br/><br/>
           <DownloadButton name="device.cfg" uri="/api/iot/devicecfg"  label="Download device.cfg"/>
           <br/>
 

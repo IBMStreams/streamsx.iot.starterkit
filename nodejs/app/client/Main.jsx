@@ -8,23 +8,29 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
+import {BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
-import AppBar from 'material-ui/lib/app-bar';
+import PropTypes from 'prop-types'
+import AppBar from 'material-ui/AppBar';
 
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/lib/toolbar';
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import BaseComponent from './common/BaseComponent';
 import Welcome from './Welcome';
 import Settings from './Settings';
 import Howto from './Howto';
 
-import ThemeManager from 'material-ui/lib/styles/theme-manager';
+//import ThemeManager from 'material-ui/styles/theme-manager';
 import AppTheme from './style/theme';
 import StreamJobs from './StreamJobs';
 
-import IconButton from 'material-ui/lib/icon-button';
+import IconButton from 'material-ui/IconButton';
 
-import FlatButton from 'material-ui/lib/flat-button';
+import FlatButton from 'material-ui/FlatButton';
 
 const _ = require('lodash');
 const request = require('superagent');
@@ -42,7 +48,7 @@ class Main extends BaseComponent {
   }
 
   getChildContext() {
-      return {muiTheme: ThemeManager.getMuiTheme(AppTheme)};
+      return {muiTheme: getMuiTheme(AppTheme)};
     }
 
 
@@ -80,10 +86,10 @@ class Main extends BaseComponent {
         />
         <Toolbar  >
          <ToolbarGroup firstChild={true}>
-        <FlatButton style={button_style} label="Home" onTouchTap={this.showPage('home')}/>
-        <FlatButton style={button_style}  label="Tools" onTouchTap={this.showPage('tools')}/>
+        <FlatButton style={button_style} label="Home" onClick={this.showPage('home')}/>
+        <FlatButton style={button_style}  label="Tools" onClick={this.showPage('tools')}/>
 
-       <FlatButton style={button_style}  label="View All Credentials" onTouchTap={this.showPage('credentials')}/>
+       <FlatButton style={button_style}  label="View All Credentials" onClick={this.showPage('credentials')}/>
 </ToolbarGroup>
   </Toolbar>
   <br/>
@@ -94,6 +100,6 @@ class Main extends BaseComponent {
 }
 
 Main.childContextTypes = {
-  muiTheme: React.PropTypes.object
+  muiTheme: PropTypes.object
 }
 export default Main;

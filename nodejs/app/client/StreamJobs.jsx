@@ -8,13 +8,13 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
-import { Card, CardText, CardHeader, CardActions } from 'material-ui/lib/card';
+import { Card, CardText, CardHeader, CardActions } from 'material-ui/Card';
 import CustomCard from './CustomCard';
 
-import RaisedButton from 'material-ui/lib/raised-button';
-import Refresh from 'material-ui/lib/svg-icons/navigation/refresh';
-import Report from 'material-ui/lib/svg-icons/content/report';
-import Publish from 'material-ui/lib/svg-icons/editor/publish';
+import RaisedButton from 'material-ui/RaisedButton';
+import Refresh from 'material-ui/svg-icons/navigation/refresh';
+import Report from 'material-ui/svg-icons/content/report';
+import Publish from 'material-ui/svg-icons/editor/publish';
 
 import AppTheme from './style/theme';
 import BaseComponent from './common/BaseComponent';
@@ -150,10 +150,10 @@ class StreamJobs extends BaseComponent {
           <RaisedButton
             label={refreshText}
             disabled={refreshDisable}
-            icon={<Refresh />} secondary={true}
+            icon={<Refresh />} primary={true}
             onMouseDown={this.refreshJobStatus}
           />
-          <RaisedButton secondary={true}
+          <RaisedButton primary={true}
             label={jobButtonText}
             icon={jobButtonIcon}
             disabled={refreshDisable}

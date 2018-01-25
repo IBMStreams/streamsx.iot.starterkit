@@ -3,7 +3,7 @@
 /* This is an automatically generated copyright prolog.             */
 /* After initializing,  DO NOT MODIFY OR MOVE                       */
 /* **************************************************************** */
-/* (C) Copyright IBM Corp.  2016, 2017                             */
+/* (C) Copyright IBM Corp.  2016, 2018                             */
 /* All Rights Reserved.                                             */
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
@@ -11,6 +11,10 @@ const express = require('express');
 const path = require('path');
 const HttpStatus = require('http-status-codes');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport =  require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const connect = require("connect-ensure-login");
 const httpProxy = require('http-proxy');
 
 const config = require('./app/server/config/application');
@@ -52,7 +56,72 @@ if (isProduction) {
 var proxy = httpProxy.createProxyServer();
 var app = express();
 
+
+//Contains the credentials of the owner of this starter kit.
+var userObj = {};
+var NOT_SET ="Login failed, check that username and password are configured in the IBM Cloud dashboard";
+if (process.env.KIT_OWNER && process.env.KIT_PASSWORD) {
+  userObj.user = process.env.KIT_OWNER;
+  userObj.pass = process.env.KIT_PASSWORD;
+}
+
+//called by the passport API to initiate login given  the credentials.
+function doLogin(username, password, done){
+  console.log("start.js line 70 called do login ");
+
+  if (!auth(username, password)){
+    return done({message: "Incorrect username or password. Values must match the SKUSER and SKPASS values you set when you configured your starter kit."})
+  }
+
+
+  return done(null, {user: {id: username}});
+}
+
+//This actually checks the credentials match
+function auth(username, password){
+  console.log("start.js line 81: checking auth function");
+
+  if (userObj.pass && userObj.user){
+    if (userObj.pass === password && userObj.user === username){
+      return true;
+    }
+  }
+  return false;
+
+}
+
+///Functions for Passport api
+
+passport.use(new LocalStrategy(function(username, password, done) {
+  console.log("start.js line 92: ");
+  console.log(done.toString())
+  if (!auth(username, password)){
+    return done({message: "Incorrect username or password. Values must match the SKUSER and SKPASS values you set when you configured your starter kit."})
+  }
+  else {
+    return done(null, {user: {id: username}});
+  }
+}
+));
+passport.serializeUser(function (user, cb){
+  cb(null, user.user.id);
+});
+
+passport.deserializeUser(function(userid, cb){
+  console.log("start.js line 107");
+  if (userObj.user && userid) {
+
+    if (userid != userObj.user){
+      cb("Unknown user, please log in.");
+    } else {
+      cb(null, {user: {id: userid}});
+    }
+  } else {
+    cb(NOT_SET);
+  }
+});
 var appServer;
+
 
 if (config.server.ssl.enabled) {
   appServer = server.createSSLServer(config, app, function() {
@@ -66,6 +135,68 @@ if (config.server.ssl.enabled) {
 
 // parse application/json
 app.use(bodyParser.json());
+
+
+//Expire session after 1 hour
+var hour = 1000 * 60* 60; //hour in MS
+app.use(session(
+  { secret: "so-e-p-c-q-r-3-7",
+  rolling: true,
+    cookie: {maxAge:hour },
+     resave:false,
+     saveUninitialized: false}));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+///a get request to /LOGIN sends them to home
+app.get("/login", function(req, res){
+  res.redirect("/");
+});
+
+function logRequests(req, res, next){
+  console.log("request received ");
+
+  next();
+}
+
+//post request to login does authentication
+app.post("/login", logRequests, passport.authenticate('local', {failureRedirect: '/login'} ),function(req, res){
+  //succesful login
+  res.send({auth: true})  ;
+}
+);
+function authenticationMiddleware () {
+  return function (req, res, next) {
+
+    if (req.isAuthenticated()) {
+      return next()
+    } else {
+      console.log("unauthorized request received, redirecting.");
+    }
+    res.redirect('/')
+  }
+}
+
+//use middleware to intercept requests.
+ passport.authenticationMiddleware = authenticationMiddleware();
+ //this is the key part of the authentication.
+ //authenticationMiddleware function is called on every API call. If they aren't authenticated.
+ //we redirect to home.
+app.use("/api/*", logRequests, passport.authenticationMiddleware,  function (req, res, next){
+    next();
+} );
+app.use("/main", function(req, res, next){
+  console.log(req);
+  console.log("back to home");
+  res.redirect("/");
+});
+
+// Other server side endpoints
+app.use('/api/streams', require('./app/server/routes/streams/streams-endpoint'));
+app.use('/api/iot', require('./app/server/routes/iot/iot-endpoint'));
+
 
 // We point to our static assets
 app.use(express.static(staticAssetsPath));
@@ -95,9 +226,9 @@ proxy.on('error', function(e) {
 // Socket listener
 io.listen(appServer);
 
-// Other server side endpoints
-app.use('/api/streams', require('./app/server/routes/streams/streams-endpoint'));
-app.use('/api/iot', require('./app/server/routes/iot/iot-endpoint'));
+
+
+
 
 // Common error handler
 app.use(function(err, req, res, next) {
@@ -110,7 +241,9 @@ app.use(function(err, req, res, next) {
   };
 
   if (config.server.stacktrace) {
-    errorJson.stack = err.stack.split('\n');
+    if (err.stack){
+      errorJson.stack = err.stack.split('\n');
+    }
   }
 
   // Log non-HTTP errors to terminal (could be compilation/runtime errors)

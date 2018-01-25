@@ -6,8 +6,8 @@
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
 import React from 'react';
-import RaisedButton from 'material-ui/lib/raised-button';
-import Download from 'material-ui/lib/svg-icons/file/file-download';
+import RaisedButton from 'material-ui/RaisedButton';
+import Download from 'material-ui/svg-icons/file/file-download';
 import AppTheme from './style/theme';
 import BaseComponent from './common/BaseComponent';
 //Reusable component to show a "Download" button. Used to download the various config files needed
@@ -24,7 +24,7 @@ class DownloadButton extends BaseComponent {
     return(
     <div>
     <form action={this.props.uri} method="get">
-     <RaisedButton secondary={true}
+     <RaisedButton  primary={true}
         label={this.props.label}
       type="submit"
       download={this.props.name}
