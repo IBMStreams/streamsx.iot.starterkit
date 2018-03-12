@@ -44,7 +44,7 @@ stages:
 
 
       # setup services used by this app
-      cf create-service streaming-analytics lite-vm Streaming-Analytics
+      cf create-service streaming-analytics lite Streaming-Analytics
       cf create-service iotf-service iotf-service-free Internet-of-Things-Platform
 
       cf push "${CF_APP}"
