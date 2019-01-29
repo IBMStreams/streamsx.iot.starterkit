@@ -112,4 +112,6 @@ Then, after cloning the repository:
 * ```cd nodejs```
 * modify [app/server/config/application-local.js](nodejs/app/server/config/application-local.js), and fill in the credentials for the services where indicated.
 * ```npm install```
-* ```npm start```
+* ```KIT_OWNER=name KIT_PASSWORD=somepass npm start```
+
+Go to `localhost:3000/` in your browser.

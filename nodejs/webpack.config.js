@@ -27,22 +27,23 @@ var config = {
     publicPath: '/build/'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
   module: {
-    preLoaders: [
+    rules: [
       {
         //Eslint loader
         test: /\.jsx?$/,
         loader: 'eslint-loader',
         include: [mainPath],
+        enforce: "pre",
         exclude: [nodeModulesPath]
       }
     ],
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: [nodeModulesPath]
       },
       {
@@ -57,7 +58,8 @@ var config = {
     new Webpack.EnvironmentPlugin([
       "npm_package_version"
     ])
-  ]
+  ],
+  mode: 'production'
 };
 
 module.exports = config;
