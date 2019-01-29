@@ -3,7 +3,7 @@ stages:
 - name: Build Stage
   inputs:
   - type: git
-    branch: master
+    branch: upgrade
   triggers:
   - type: commit
   jobs:
@@ -12,7 +12,7 @@ stages:
     build_type: npm
     script: |-
       #!/bin/bash
-      export PATH=/opt/IBM/node-v4.2/bin:$PATH   
+      export PATH=/opt/IBM/node-v6.2.2/bin:$PATH   
 
       cd nodejs
       npm install
