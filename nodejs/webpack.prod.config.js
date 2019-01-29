@@ -21,7 +21,6 @@ var config = {
     filename: 'bundle.js'
   },
   plugins: [
-    new Webpack.optimize.DedupePlugin(),
     new Webpack.EnvironmentPlugin([
       "npm_package_version"
     ])
