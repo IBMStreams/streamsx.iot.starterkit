@@ -3,7 +3,7 @@
 /* This is an automatically generated copyright prolog.             */
 /* After initializing,  DO NOT MODIFY OR MOVE                       */
 /* **************************************************************** */
-/* (C) Copyright IBM Corp.  2016, 2016                              */
+/* (C) Copyright IBM Corp.  2016, 2019                              */
 /* All Rights Reserved.                                             */
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
@@ -21,40 +21,36 @@ var config = {
     filename: 'bundle.js'
   },
   plugins: [
-    new Webpack.optimize.UglifyJsPlugin(),
     new Webpack.optimize.DedupePlugin(),
-    new Webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    }),
     new Webpack.EnvironmentPlugin([
       "npm_package_version"
     ])
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         loader: 'eslint-loader',
+        enforce: "pre",
         include: [mainPath],
         exclude: [nodeModulesPath]
       }
     ],
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: [nodeModulesPath]
       }, {
         test: /\.css$/,
         loader: 'style!css'
       }
     ]
-  }
+  },
+  mode: 'production'
 };
 
 module.exports = config;

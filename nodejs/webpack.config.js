@@ -3,7 +3,7 @@
 /* This is an automatically generated copyright prolog.             */
 /* After initializing,  DO NOT MODIFY OR MOVE                       */
 /* **************************************************************** */
-/* (C) Copyright IBM Corp.  2016, 2016                              */
+/* (C) Copyright IBM Corp.  2016, 2019                              */
 /* All Rights Reserved.                                             */
 /* **************************************************************** */
 /* end_generated_IBM_copyright_prolog                               */
