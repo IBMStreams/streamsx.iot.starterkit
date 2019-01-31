@@ -1,12 +1,19 @@
 # streamsx.iot.starterkit
 This starter kit simplifies the setup for using the streamsx.iot toolkit to connect Apache Edgent applications with Streams applications.
 
-The recommended way to analyze data from IoT devices running Apache Edgent is to send the data to the Watson IoT Platform.  Then, you can retrieve that data from a Streams application running locally or in the Streaming Analytics service in the IBM Cloud, as illustrated below.
+The recommended way to **analyze data from IoT devices** running Apache Edgent is to  
+
+*  Send the data to the Watson IoT Platform.
+*  Retrieve the data from a Streams application, as illustrated below.
 
 
 ![Illustration](https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2017/09/edgent-iot-streams.png)
 
 Deploying this starter kit to the IBM Cloud will set up the Watson IoT Platform and Streaming Analytics services for you. It will also create the credentials you need to connect your Streams and Edgent applications.
+
+You'll get a simple page showing you your services and the various credentials.
+
+<a href="https://streams-iot-starter.bluemix.net" target="blank"> Check out the demo page</a>
 
 If you choose not to deploy the services automatically, or if you are using an on-prem Streams installation, you can follow these instructions to [setup Streams and the Watson IoT Platform manually](https://developer.ibm.com/streamsdev/docs/setup-instructions-connecting-edgent-streams-applications-watson-iot-platform).
 
@@ -112,4 +119,6 @@ Then, after cloning the repository:
 * ```cd nodejs```
 * modify [app/server/config/application-local.js](nodejs/app/server/config/application-local.js), and fill in the credentials for the services where indicated.
 * ```npm install```
-* ```npm start```
+* ```KIT_OWNER=name KIT_PASSWORD=somepass npm start```
+
+Go to `localhost:3000/` in your browser.
