@@ -140,7 +140,7 @@ app.use(bodyParser.json());
 //Expire session after 1 hour
 var hour = 1000 * 60* 60; //hour in MS
 app.use(session(
-  { secret: "so-e-p-c-q-r-3-7",
+  { secret: userObj.pass + "_" + userObj.user,
   rolling: true,
     cookie: {maxAge:hour },
      resave:false,
