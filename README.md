@@ -9,6 +9,11 @@ The recommended way to **analyze data from IoT devices** running Apache Edgent i
 
 ![Illustration](https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2017/09/edgent-iot-streams.png)
 
+
+# March 2019: Temporarily unavailable
+## The Streams IoT starter kit is currently down for maintenance, and attempts to deploy will not be successful.  But you can still create the services you need to develop with Streams and IoT devices by [following the steps on Streamsdev](https://developer.ibm.com/streamsdev/docs/setup-instructions-connecting-edgent-streams-applications-watson-iot-platform/).
+
+
 Deploying this starter kit to the IBM Cloud will set up the Watson IoT Platform and Streaming Analytics services for you. It will also create the credentials you need to connect your Streams and Edgent applications.
 
 After deployment, visit your landing page to access services and the various credentials.
